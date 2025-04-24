@@ -1,10 +1,9 @@
-
-import { defineConfig } from 'vite';
-import hydrogen from '@shopify/hydrogen/plugin';
+// vite.config.ts
+import { defineConfig } from 'vite'
 
 export default defineConfig({
-  plugins: [hydrogen()],
-  ssr: {
-    external: ['isbot'],
-  },
-});
+  root: './',
+  build: {
+    outDir: 'dist'
+  }
+})

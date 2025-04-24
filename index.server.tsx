@@ -1,58 +1,49 @@
 
-import { useShopQuery, gql, Link, Seo } from '@shopify/hydrogen';
-import { Suspense } from 'react';
-
 export default function HomePage() {
-  const {
-    data: { products },
-  } = useShopQuery({
-    query: QUERY,
-    preload: true,
-  });
+  const products = [
+    {
+      id: 1,
+      title: 'Planner 2025',
+      description: 'Organize sua vida com este planner digital em PDF.',
+      price: 'CHF 7.90',
+    },
+    {
+      id: 2,
+      title: 'Kit de Branding Minimalista',
+      description: 'Arquivos Canva com logotipo, paleta de cores e fontes.',
+      price: 'CHF 12.00',
+    },
+    {
+      id: 3,
+      title: 'Template de Currículo Moderno',
+      description: 'Modelo editável em Word e PDF para destacar sua carreira.',
+      price: 'CHF 5.50',
+    },
+  ];
 
   return (
-    <div className="bg-white min-h-screen p-8">
-      <Seo type="homepage" data={{ title: 'Pixel Vault – Instant Digital Downloads' }} />
-      <h1 className="text-4xl font-bold text-center mb-6">Pixel Vault</h1>
-      <p className="text-center text-gray-600 text-lg mb-10">Instant access to powerful digital tools</p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {products.nodes.map((product) => (
-          <div key={product.id} className="border rounded-2xl p-6 shadow-md hover:shadow-lg transition">
-            <h2 className="text-xl font-semibold mb-2">{product.title}</h2>
-            <p className="text-gray-700 mb-4">{product.description}</p>
-            <p className="text-lg font-bold mb-4">
-              {product.variants.nodes[0].price.amount} {product.variants.nodes[0].price.currencyCode}
-            </p>
-            <Link
-              to={`/products/${product.handle}`}
-              className="bg-black text-white px-4 py-2 rounded-lg block text-center"
-            >
-              View & Download
-            </Link>
+    <div style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
+      <h1 style={{ fontSize: '2rem', fontWeight: 'bold' }}>Pixel Vault</h1>
+      <p style={{ color: '#666', marginBottom: '2rem' }}>
+        Acesso instantâneo a produtos digitais profissionais
+      </p>
+      <div style={{ display: 'grid', gap: '1.5rem' }}>
+        {products.map((product) => (
+          <div
+            key={product.id}
+            style={{
+              border: '1px solid #ddd',
+              borderRadius: '1rem',
+              padding: '1rem',
+              background: '#fafafa',
+            }}
+          >
+            <h2 style={{ fontSize: '1.2rem' }}>{product.title}</h2>
+            <p style={{ margin: '0.5rem 0' }}>{product.description}</p>
+            <strong>{product.price}</strong>
           </div>
         ))}
       </div>
     </div>
   );
 }
-
-const QUERY = gql`
-  query HomepageProducts {
-    products(first: 6) {
-      nodes {
-        id
-        title
-        handle
-        description
-        variants(first: 1) {
-          nodes {
-            price {
-              amount
-              currencyCode
-            }
-          }
-        }
-      }
-    }
-  }
-`;

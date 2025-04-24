@@ -1,6 +1,5 @@
-
 {
-  "name": "pixel-vault",
+  "name": "pixel-vault-store",
   "private": true,
   "scripts": {
     "dev": "vite",
